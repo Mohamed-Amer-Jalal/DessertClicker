@@ -64,7 +64,6 @@ class MainActivity : ComponentActivity() {
                         desserts = Datasource.dessertList,
                         modifier = Modifier.padding(innerPadding)
                     )
-
                 }
             }
         }
@@ -111,7 +110,7 @@ private fun shareSoldDessertsInformation(intentContext: Context, dessertsSold: I
 
     try {
         ContextCompat.startActivity(intentContext, shareIntent, null)
-    } catch (e: ActivityNotFoundException) {
+    } catch (_: ActivityNotFoundException) {
         Toast.makeText(
             intentContext,
             intentContext.getString(R.string.sharing_not_available),
