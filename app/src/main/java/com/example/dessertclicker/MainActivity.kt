@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -53,9 +54,13 @@ import com.example.dessertclicker.model.Datasource
 import com.example.dessertclicker.model.Dessert
 import com.example.dessertclicker.ui.theme.DessertClickerTheme
 
+private const val TAG = "MainActivity"
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(TAG, "onCreate Called")
+
         enableEdgeToEdge()
         setContent {
             DessertClickerTheme {
@@ -68,6 +73,36 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart Called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume Called")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart Called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause Called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop Called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy Called")
+    }
 }
 
 /**
@@ -75,7 +110,7 @@ class MainActivity : ComponentActivity() {
  */
 fun determineDessertToShow(
     desserts: List<Dessert>,
-    dessertsSold: Int
+    dessertsSold: Int,
 ): Dessert {
     var dessertToShow = desserts.first()
     for (dessert in desserts) {
@@ -122,7 +157,7 @@ private fun shareSoldDessertsInformation(intentContext: Context, dessertsSold: I
 @Composable
 private fun DessertClickerApp(
     desserts: List<Dessert>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
 
     var revenue by rememberSaveable { mutableIntStateOf(0) }
@@ -152,9 +187,11 @@ private fun DessertClickerApp(
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(
-                        start = WindowInsets.safeDrawing.asPaddingValues()
+                        start = WindowInsets.safeDrawing
+                            .asPaddingValues()
                             .calculateStartPadding(layoutDirection),
-                        end = WindowInsets.safeDrawing.asPaddingValues()
+                        end = WindowInsets.safeDrawing
+                            .asPaddingValues()
                             .calculateEndPadding(layoutDirection),
                     )
                     .background(MaterialTheme.colorScheme.primary)
@@ -184,7 +221,7 @@ private fun DessertClickerApp(
 @Composable
 private fun DessertClickerAppBar(
     onShareButtonClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
@@ -216,7 +253,7 @@ fun DessertClickerScreen(
     dessertsSold: Int,
     @DrawableRes dessertImageId: Int,
     onDessertClicked: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
         Image(
@@ -254,7 +291,7 @@ fun DessertClickerScreen(
 private fun TransactionInfo(
     revenue: Int,
     dessertsSold: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         DessertsSoldInfo(
