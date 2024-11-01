@@ -144,7 +144,7 @@ private fun shareSoldDessertsInformation(intentContext: Context, dessertsSold: I
     val shareIntent = Intent.createChooser(sendIntent, null)
 
     try {
-        ContextCompat.startActivity(intentContext, shareIntent, null)
+        ContextCompat.startActivities(intentContext, arrayOf(shareIntent), null)
     } catch (_: ActivityNotFoundException) {
         Toast.makeText(
             intentContext,
